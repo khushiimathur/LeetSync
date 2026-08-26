@@ -10,8 +10,13 @@ class GitManager:
         result = subprocess.run(
             ["git", *args],
             cwd=self.repo_dir,
-            capture_output=True
+            capture_output=True,
+            text = True
         )
+        if result.returncode != 0:
+            raise RuntimeError(
+                f"Git command failed: {result.stderr}"
+            )
 
         return result
 
@@ -29,7 +34,7 @@ class GitManager:
         return result.stdout
 
     def push(self):
-        result = self._run_git("push")
+        result = self._run_git("push", "origin", "main")
         return result.stdout
 
 
