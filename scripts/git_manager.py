@@ -25,8 +25,8 @@ class GitManager:
 
         return result.stdout
 
-    def add_changes(self):
-        result = self._run_git("add", ".")
+    def add_changes(self, path):
+        result = self._run_git("add", str(path))
         return result.stdout
 
     def commit(self, message):
@@ -38,10 +38,3 @@ class GitManager:
         return result.stdout
 
 
-if __name__ == "__main__":
-    git = GitManager()
-
-    print(git.status())
-    print(git.add_changes())
-    print(git.commit("Added git_manager.py"))
-    print(git.push())
